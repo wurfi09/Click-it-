@@ -1,0 +1,395 @@
+/* ===== Farbschema ===== */
+:root {
+    --bg: #07070d;
+    --panel: #0d0f17;
+    --green: #39ff14;
+    --cyan: #00e5ff;
+    --violet: #b026ff;
+    --red: #ff2e63;
+    --font: "Fira Code", "Cascadia Code", Consolas, "Courier New", monospace;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--font);
+    color: var(--green);
+    background-color: var(--bg);
+    /* feines Raster im Hintergrund */
+    background-image:
+      linear-gradient(rgba(0, 229, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  
+  /* CRT-Scanlines über der ganzen Seite */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0,
+      rgba(0, 0, 0, 0) 2px,
+      rgba(0, 0, 0, 0.18) 3px
+    );
+    z-index: 100;
+  }
+  
+  h1, h2 {
+    margin: 0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  
+  /* ===== Header / Dashboard (Flexbox) ===== */
+  .dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px 32px;
+    padding: 16px 24px;
+    background: var(--panel);
+    border-bottom: 2px solid var(--cyan);
+    box-shadow: 0 0 18px rgba(0, 229, 255, 0.5);
+  }
+  
+  .dashboard h1 {
+    font-size: 1.3rem;
+    color: var(--green);
+    text-shadow: 0 0 8px var(--green);
+  }
+  
+  .cursor {
+    animation: blink 1s steps(2, start) infinite;
+  }
+  
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .stat {
+    min-width: 110px;
+    padding: 8px 16px;
+    text-align: center;
+    border: 1px solid var(--violet);
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(176, 38, 255, 0.5), inset 0 0 8px rgba(176, 38, 255, 0.25);
+  }
+  
+  .stat .label {
+    display: block;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--violet);
+    text-shadow: 0 0 6px var(--violet);
+  }
+  
+  .stat .value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+    color: var(--cyan);
+    text-shadow: 0 0 8px var(--cyan);
+  }
+  
+  /* ===== Layout (Grid) ===== */
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr;          /* Handy: untereinander */
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+  
+  @media (min-width: 900px) {
+    .layout {
+      grid-template-columns: 2fr 1fr;    /* Desktop: nebeneinander */
+      align-items: start;
+    }
+  }
+  
+  /* ===== Panels ===== */
+  .panel {
+    padding: 16px;
+    background: var(--panel);
+    border: 2px solid var(--green);
+    border-radius: 6px;
+    box-shadow: 0 0 14px rgba(57, 255, 20, 0.45), inset 0 0 14px rgba(57, 255, 20, 0.1);
+  }
+  
+  .panel h2 {
+    margin-bottom: 14px;
+    font-size: 1rem;
+    color: var(--cyan);
+    text-shadow: 0 0 8px var(--cyan);
+  }
+  
+  /* ===== Spielfeld ===== */
+  #spielfeld {
+    position: relative;
+    width: 100%;
+    min-height: 320px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px dashed var(--cyan);
+    border-radius: 4px;
+    box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.2);
+  }
+  
+  /* ===== Tresor-Formular ===== */
+  .panel-tresor {
+    border-color: var(--violet);
+    box-shadow: 0 0 14px rgba(176, 38, 255, 0.5), inset 0 0 14px rgba(176, 38, 255, 0.12);
+  }
+  
+  .panel-tresor h2 {
+    color: var(--violet);
+    text-shadow: 0 0 8px var(--violet);
+  }
+  
+  label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--green);
+  }
+  
+  input {
+    display: block;
+    width: 100%;
+    margin: 8px 0 14px;
+    padding: 10px;
+    font-family: var(--font);
+    font-size: 1rem;
+    color: var(--green);
+    background: #000;
+    border: 1px solid var(--green);
+    border-radius: 4px;
+    outline: none;
+  }
+  
+  input:focus {
+    box-shadow: 0 0 10px var(--green);
+  }
+  
+  /* ===== Buttons ===== */
+  button {
+    width: 100%;
+    padding: 10px 16px;
+    font-family: var(--font);
+    font-size: 0.95rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    background: transparent;
+    border: 2px solid var(--cyan);
+    border-radius: 4px;
+    box-shadow: 0 0 10px var(--cyan), inset 0 0 8px rgba(0, 229, 255, 0.3);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+  }
+  
+  button:hover,
+  button:focus-visible {
+    color: #000;
+    background: var(--cyan);
+    box-shadow: 0 0 22px var(--cyan);
+    outline: none;
+  }
+  
+  button:active {
+    transform: scale(0.97);
+  }
+  
+  /* ===== Meldungen ===== */
+  #tresor-meldung {
+    min-height: 1.4em;
+    margin: 14px 0 0;
+    font-weight: bold;
+  }
+  
+  #tresor-meldung.erfolg {
+    color: var(--green);
+    text-shadow: 0 0 8px var(--green);
+  }
+  
+  #tresor-meldung.fehler {
+    color: var(--red);
+    text-shadow: 0 0 8px var(--red);
+  }
+  
+  /* ===== Animation ===== */
+  @keyframes blink {
+    to { visibility: hidden; }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .cursor { animation: none; }
+  }
+  /* ===== Spielername im Header ===== */
+.stat-name {
+    min-width: 150px;
+    border-color: var(--green);
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.5), inset 0 0 8px rgba(57, 255, 20, 0.2);
+  }
+  
+  .stat-name .label {
+    color: var(--green);
+    text-shadow: 0 0 6px var(--green);
+  }
+  
+  .stat-name input {
+    width: 100%;
+    margin: 4px 0 0;
+    padding: 2px 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--cyan);
+    text-shadow: 0 0 8px var(--cyan);
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--cyan);
+    border-radius: 0;
+  }
+  
+  .stat-name input::placeholder {
+    color: rgba(0, 229, 255, 0.35);
+    text-shadow: none;
+  }
+  
+  .stat-name input:focus {
+    box-shadow: 0 2px 8px var(--cyan);
+  }
+  /* ===== Name-Formular im Header ===== */
+.stat-name button {
+    width: 100%;
+    margin-top: 6px;
+    padding: 4px 8px;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+  }
+  
+  /* Restzeit wird rot, wenn es knapp wird */
+  .stat.warn {
+    border-color: var(--red);
+    box-shadow: 0 0 10px rgba(255, 46, 99, 0.6), inset 0 0 8px rgba(255, 46, 99, 0.25);
+  }
+  .stat.warn .value {
+    color: var(--red);
+    text-shadow: 0 0 8px var(--red);
+  }
+  
+  /* ===== Spielfeld ===== */
+  .spiel-steuerung {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 20px;
+    margin-bottom: 12px;
+  }
+  
+  .spiel-steuerung button {
+    width: auto;
+    padding: 10px 24px;
+  }
+  
+  #spielmeldung {
+    margin: 0;
+    flex: 1 1 220px;
+    font-size: 0.9rem;
+    color: var(--cyan);
+  }
+  
+  #spielfeld {
+    overflow: hidden;
+    cursor: crosshair;
+  }
+  
+  /* Der Glitch: ein kleines, leuchtendes Quadrat */
+  .glitch {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border-radius: 3px;
+    cursor: pointer;
+    animation: glitch-flackern 0.25s steps(2, end) infinite;
+  }
+  
+  @keyframes glitch-flackern {
+    0%   { transform: translate(0, 0); }
+    50%  { transform: translate(2px, -2px) skewX(8deg); }
+    100% { transform: translate(-2px, 1px); }
+  }
+  
+  button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  
+  /* ===== Tresor-Inhalt ===== */
+  #tresor-inhalt {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--violet);
+  }
+  
+  #tresor-inhalt[hidden] {
+    display: none;
+  }
+  
+  .ascii {
+    margin: 0 0 12px;
+    font-family: var(--font);
+    line-height: 1.2;
+    color: var(--green);
+    text-shadow: 0 0 8px var(--green);
+  }
+  
+  #geheimer-spruch {
+    color: var(--cyan);
+    font-style: italic;
+  }
+  
+  #cheat-text {
+    color: var(--green);
+    font-weight: bold;
+    text-shadow: 0 0 8px var(--green);
+  }
+  
+  /* ===== Randnotiz ===== */
+  .randnotiz {
+    grid-column: 1 / -1;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    font-style: italic;
+    color: rgba(0, 229, 255, 0.6);
+    border-left: 3px solid var(--violet);
+  }
+  /* ===== Größeres Spielfeld ===== */
+.layout {
+    max-width: 1600px;          /* Seite darf breiter werden (vorher 1200px) */
+  }
+  
+  @media (min-width: 900px) {
+    .layout {
+      grid-template-columns: 3fr 1fr;   /* Spielfeld bekommt 3 Teile, Tresor nur 1 */
+    }
+  }
+  
+  #spielfeld {
+    height: 65vh;               /* 65 % der Fensterhöhe */
+    min-height: 420px;          /* aber nie kleiner als 420px */
+  }

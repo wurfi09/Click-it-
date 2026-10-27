@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Click the Glitch</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="dashboard">
+    <!-- Diese Überschrift ändert sich live, sobald der Name bestätigt wird -->
+    <h1><span id="titel-text">&gt; CLICK_THE_GLITCH</span><span class="cursor">_</span></h1>
+
+    <div class="stats">
+      <form id="name-form" class="stat stat-name">
+        <label class="label" for="spielername">Agentenname</label>
+        <input type="text" id="spielername" maxlength="12"
+               placeholder="NAME" autocomplete="off" spellcheck="false" required>
+        <button type="submit">Bestätigen</button>
+      </form>
+
+      <div class="stat">
+        <span class="label">Score</span>
+        <span class="value" id="score">0</span>
+      </div>
+      <div class="stat">
+        <span class="label">Highscore</span>
+        <span class="value" id="highscore">0</span>
+      </div>
+      <div class="stat" id="restzeit-box">
+        <span class="label">Restzeit</span>
+        <span class="value" id="restzeit">15</span>
+      </div>
+    
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel panel-spielfeld">
+      <h2>// SPIELFELD</h2>
+      <div class="spiel-steuerung">
+        <button type="button" id="start-btn">Spiel starten</button>
+        <p id="spielmeldung">Du hast 15 Sekunden. Klicke so viele Glitches wie möglich!</p>
+      </div>
+      <div id="spielfeld"></div>
+    </section>
+
+    <section class="panel panel-tresor">
+      <h2>// TRESOR</h2>
+      <form id="tresor-form">
+        <label for="passwort">Passwort eingeben:</label>
+        <input type="password" id="passwort" autocomplete="off" required>
+        <button type="submit">Tresor knacken</button>
+      </form>
+      <p id="tresor-meldung"></p>
+
+      <!-- Geheimer Inhalt: erscheint erst nach richtigem Passwort -->
+      <div id="tresor-inhalt" hidden>
+        <pre class="ascii">
+  ┌───────────┐
+  │ ▓▓ ▒▒ ░░  │
+  │  (⌐■_■)   │
+  │ ACCESS OK │
+  └───────────┘</pre>
+        <p id="geheimer-spruch"></p>
+        <p id="cheat-text"></p>
+      </div>
+    </section>
+
+    <aside class="randnotiz">
+      // made by wurfi with the help of AI \\
+    </aside>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
